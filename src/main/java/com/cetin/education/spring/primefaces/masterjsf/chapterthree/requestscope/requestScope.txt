@@ -1,0 +1,9 @@
+Dikkat et !!  Waiter içerisindeki Soup ile Chef içerisindeki Soup aynı object'i reference eder.
+
+This example show the use of @RequestScoped annotation for injected objects.
+An object which is defined as @RequestScoped is created once for every request and is shared by all the bean that inject it throughout a request.
+
+
+Example
+This example depicts a similar scenario to cdi-application-scope. A restaurant guest orders a soup from the waiter.
+The order is passed to the chef who prepares it and passes it back the waiter who in turn delivers it to the guest.

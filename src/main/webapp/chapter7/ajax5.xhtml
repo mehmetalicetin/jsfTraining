@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Ajax4</title>
+    </h:head>
+    <h:body>
+        <!-- -->
+        <h:form>
+            <h:message id="msgId" for="nameId" style="color:red"/>
+            <h:inputText id="nameId" validator="#{nameValidator.validate}" placeholder="Enter your name ..."/>
+            <h:commandButton value="Submit">
+                <f:ajax execute="@form" resetValues="true" listener="#{ajaxBean.upperCaseName()}"
+                        render="nameId msgId"/>
+            </h:commandButton>
+            <h:commandButton value="Clear">
+                <f:ajax execute="@this" render="@form" listener="#{ajaxBean.cancelName()}"/>
+            </h:commandButton>
+        </h:form>
+
+
+        <hr/>
+        <hr/>
+        <hr/>
+        <hr/>
+
+        <h:form>
+
+            Is PostBack : <h:outputText id="postbackId" value="#{facesContext.postback}"/>
+            <br/>
+            Name:
+            <h:inputText id="nameIdx" value="#{ajaxBean.name}" validator="#{nameValidator.validate}"/>
+            <h:message id="msgNameId" for="nameIdx" style="color: red;"/>
+            Surname:
+            <h:inputText id="surnameId" value="#{ajaxBean.surname}" validator="#{nameValidator.validate}"/>
+            <h:message id="msgSurnameId" for="surnameId" style="color: red;"/> ..
+            <h:commandButton value="Submit">
+                <f:ajax execute="@form" listener="#{ajaxBean.upperCaseNameAndSurname()}"
+                        render="nameIdx msgNameId surnameId msgSurnameId postbackId" resetValues="true"/>
+            </h:commandButton>
+            <h:commandButton value="Cancel">
+                <f:ajax execute="@this" render="@form"/>
+            </h:commandButton>
+            <h:commandButton value="Clear/Reset">
+                <f:ajax execute="@this" render="@form" listener="#{ajaxBean.cancelNameAndSurname()}"/>
+            </h:commandButton>
+        </h:form>
+
+
+        <br/>
+        <br/>
+        <hr/>
+        <hr/>
+
+        <h:form>
+            <h:commandButton value="Click me!">
+                <f:ajax listener="#{ajaxBean.requestAction}" render ="postpackPanelId"/>
+            </h:commandButton>
+        </h:form>
+        <h:panelGrid id="postpackPanelId" columns="1">
+            <h:outputText value="Is Postback ?: #{facesContext.postback}"/>
+            <h:outputText value="Request Number: #{ajaxBean.request_number}"/>
+        </h:panelGrid>
+
+
+
+
+
+    </h:body>
+</f:view>
+</html>

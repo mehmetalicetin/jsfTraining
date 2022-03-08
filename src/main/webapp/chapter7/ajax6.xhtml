@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Ajax4</title>
+    </h:head>
+    <h:body>
+        <!-- -->
+        <h:form id="ajaxFormId">
+            <h:commandButton id="buttonId" value="Click Me!!">
+                <f:ajax listener="#{ajaxBean.requestAction()}"
+                        render="#{facesContext.postback eq true ? 'postbackId' : 'ajaxFormId'}"/>
+            </h:commandButton>
+            Is Postback ? <h:outputText value="#{facesContext.postback}"/>
+        </h:form>
+
+        <h:panelGrid id="postbackId" columns="1">
+            <h:outputText value="REQUEST NUMBER: #{ajaxBean.request_number}"/>
+        </h:panelGrid>
+
+
+        #{facesContext.partialViewContext.ajaxRequest ? 'Yes' : 'No'}
+
+        
+
+    </h:body>
+</f:view>
+</html>

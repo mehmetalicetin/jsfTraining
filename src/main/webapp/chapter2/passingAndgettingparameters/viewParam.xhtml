@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Chapter 2</title>
+    </h:head>
+    <f:metadata>
+        <f:viewParam id="nameId" name="playerNameParam" value="#{playersBean.playerName}">
+            <h:message for="nameId"/>
+        </f:viewParam>
+        <f:viewParam id="surnameId" name="playerSurnameParam" value="#{playersBean.playerSurname}">
+            <h:message for="surnameId"/>
+        </f:viewParam>
+<!--        The <f:viewAction> tag and the preRenderView event-->
+<!--        listener are not the same!-->
+        <f:event listener="#{playersBean.init()}" type="preRenderView"/>
+        <f:viewAction action="#{playersBean.initViewAction()}" onPostback="true"/>
+        <f:viewAction action="#{playersBean.validateData()}"/>
+    </f:metadata>
+    <h:body>
+        <h:form>
+
+<!--            The page's initial URL should be something like the following one:-->
+<!--            http://localhost:9090/chapter2/viewParam.xhtml?playerNameParam=Rafael&playerSurnameParam=Nadal-->
+
+        You requested name: <h:outputText value="#{playersBean.playerName}"/><br/>
+        You requested surname: <h:outputText value="#{playersBean.playerSurname}"/>
+
+            Player Name:<h:inputText value="#{playersBean.playerName}"/>
+            Player Surname:<h:inputText value="#{playersBean.playerSurname}"/>
+
+            <h:commandButton value="Submit" action="#{playersBean.toUpperCase()}"/>
+
+            <h:link value="Send" outcome="another_page?faces-redirect=true" includeViewParams="true"/>
+
+        </h:form>
+
+    </h:body>
+</f:view>
+</html>

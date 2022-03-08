@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://java.sun.com/jsf/html"
+>
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>PropertyActionListener_Page</title>
+    </h:head>
+    <h:body>
+        <h:form>
+<!--            Keep in mind that action listeners are executed in the order-->
+<!--            they are defined, which means that the presence of the-->
+<!--            <f:setPropertyActionListener> tag can affect the-->
+<!--            order in which the listeners are fired.-->
+
+<!--            Not: Priority : actionListener , setPropertyActionListener, action  -->
+
+            <p:commandButton value="PropertyActionListener" action="#{playersBean.parametersActionPropertyActionListener}">
+                <f:setPropertyActionListener target="#{playersBean.playerName}" value="Rafael"/>
+                <f:setPropertyActionListener target="#{playersBean.playerSurname}" value="Nadal"/>
+            </p:commandButton>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

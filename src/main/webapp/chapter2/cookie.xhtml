@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://java.sun.com/jsf/html"
+>
+<f:view>
+  <h:head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chapter 2 - Cookie</title>
+    <script>
+      function setCookie(cookie_name, value, expiration_days)
+      {
+        var expiration_date = new Date();
+        expiration_date.setDate(expiration_date.getDate() + expiration_days);
+        var c_value = escape(value) + ((expiration_days == null) ? "" : "expires=" + expiration_date.toUTCString());
+        document.cookie = cookie_name + "=" + c_value;
+      }
+
+      function deleteCookie(cookie_name) {
+        document.cookie = encodeURIComponent(cookie_name) + "=deleted; expires=" + new Date(0).toUTCString();
+      }
+
+      function getCookie(cookie_name) {
+        var i, part_1, part_2;
+        var cookieslist = document.cookie.split(";");
+//<![CDATA[
+        for (i = 0; i < cookieslist.length; i++)
+        {
+          part_1 = cookieslist[i].substr(0, cookieslist[i].indexOf("="));
+          part_2 = cookieslist[i].substr(cookieslist[i].indexOf("=") + 1);
+          part_1 = part_1.replace(/^\s+|\s+$/g, "");
+          if (part_1 == cookie_name)
+          {
+            return unescape(part_2);
+          }
+        }
+//]]>
+        return "nocookie";
+      }
+    </script>
+  </h:head>
+  <h:body>
+    <h:form>
+     <h:commandButton value="Add cookie Name" onclick="setCookie('name', 'Rafael', null)"/>;
+     <h:commandButton value="Add cookie Surname" onclick="setCookie('surname', 'Nadal', null);"/>;
+      <h:commandButton value="Read Cookie" action="#{playersBean.addCookie}"/>
+    </h:form>
+
+  </h:body>
+</f:view>
+</html>

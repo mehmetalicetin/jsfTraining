@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Ajax</title>
+    </h:head>
+    <h:body>
+        <h:form id="singleComponentForm">
+            <h:inputText id="nameInputId" value="#{ajaxBean.name}" />
+            <h:commandButton value="Send" action="#{ajaxBean.ajaxAction()}">
+                <f:ajax execute="nameInputId" render="nameOutputId"/>
+            </h:commandButton>
+            <h:outputText id="nameOutputId" value="#{ajaxBean.name}"/>
+        </h:form>
+
+        <h:form id="single">
+            <h:inputText id="inputId" value="#{ajaxBean.name}" />
+            <h:commandButton value="Send">
+                <f:ajax execute="inputId" render="outputId" listener="#{ajaxBean.ajaxAction()}"/>
+            </h:commandButton>
+            <h:outputText id="outputId" value="#{ajaxBean.name}"/>
+        </h:form>
+
+        <h:outputText value="f:ajax execute=@form render=@form"/>
+        <h:form id="MultipleComponentForm">
+            <h:panelGrid columns="2">
+                Player Name:        <h:inputText id="nameInput" value="#{ajaxBean.playerName}"/>
+                Player Last Name:   <h:inputText id="lastnameInput" value="#{ajaxBean.playerLastName}"/>
+                <p/>
+                <h:commandButton value="Send" action="#{ajaxBean.ajaxMultipleFormAction()}">
+                    <f:ajax execute="@form" render="@form"/>
+                </h:commandButton>
+                <h:outputText id="playerNameOutputId" value="#{ajaxBean.playerName}"/>
+                <h:outputText id="playerLastnameOutputId" value="#{ajaxBean.playerLastName}"/>
+            </h:panelGrid>
+        </h:form>
+
+        <h:outputText value="f:ajax execute=@form render=@none"/>
+        <h:form id="MultipleComponentFormNone">
+            <h:panelGrid columns="2">
+                Player Name:        <h:inputText id="nameInputNone" value="#{ajaxBean.playerName}"/>
+                Player Last Name:   <h:inputText id="lastnameInputNone" value="#{ajaxBean.playerLastName}"/>
+                <p/>
+                <h:commandButton value="Send" action="#{ajaxBean.ajaxMultipleFormAction()}">
+                    <f:ajax execute="@form" render="@none"/>
+                </h:commandButton>
+                <h:outputText id="playerNameOutputIdNone" value="#{ajaxBean.playerName}"/>
+                <h:outputText id="playerLastnameOutputIdNoe" value="#{ajaxBean.playerLastName}"/>
+            </h:panelGrid>
+        </h:form>
+
+
+        <h:outputText value="f:ajax execute=@this render=@form"/>
+        <h:form id="MultipleComponentForm2">
+            <h:panelGrid columns="2">
+                Player Name:        <h:inputText id="nameInput1" value="#{ajaxBean.playerName1}"><f:ajax/></h:inputText>
+                Player Last Name:   <h:inputText id="lastnameInput1" value="#{ajaxBean.playerLastName1}"><f:ajax/></h:inputText>
+                <p/>
+                <h:commandButton value="Send" action="#{ajaxBean.ajaxMultipleFormAction1()}">
+                    <f:ajax execute="@this" render="@form"/>
+                </h:commandButton>
+                <h:outputText id="playerNameOutputId1" value="#{ajaxBean.playerName1}"/>
+                <h:outputText id="playerLastnameOutputId1" value="#{ajaxBean.playerLastName1}"/>
+            </h:panelGrid>
+        </h:form>
+
+
+        <h:message id="msgId" showDetail="true" showSummary="true"
+                   for="nameId" style="color: red;"/>
+        <h:form>
+            <h:inputText id="nameId" value="#{ajaxBean.name}"/>
+            <h:commandButton value="Submit">
+                <f:ajax execute="@form" listener="#{ajaxBean.upperCaseName()}"
+                        render="@form :msgId :trackRequestId:trackId"/>
+            </h:commandButton>
+        </h:form>
+        <h:form id="trackRequestId">
+            Request number: <h:outputText id="trackId" value="#{ajaxBean.request}"/>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

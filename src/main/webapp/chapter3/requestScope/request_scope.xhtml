@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://java.sun.com/jsf/html"
+>
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Chapter 3- Request Scope</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            Just generated:
+            <h:outputText value="#{playersBeanRequestScope.player}"/><br/>
+            List of generated players:
+            <h:dataTable var="t" value="#{playersBeanRequestScope.players}">
+                <h:column>
+                    <h:outputText value="#{t}"/>
+                </h:column>
+            </h:dataTable>
+            <h:commandButton value="Get Players In Same View"
+                             actionListener="#{playersBeanRequestScope.newPlayer()}"/>
+            <h:commandButton value="Get Players With Page Forward"
+                             actionListener="#{playersBeanRequestScope.newPlayer()}"
+                             action="request_scope.xhtml"/>
+            <h:commandButton value="Get Players With Page Redirect"
+                             actionListener="#{playersBeanRequestScope.newPlayer()}"
+                             action="request_scope.xhtml?faces-redirect=true;"/>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

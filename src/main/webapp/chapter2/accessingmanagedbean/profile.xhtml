@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Chapter 2</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panelGrid columns="2">
+                Name:    <p:inputText value="#{profileBean.playersBean.playerName}"/>
+                Surname: <p:inputText value="#{profileBean.playersBean.playerSurname}"/>
+                <p:commandButton value="Submit" action="#{profileBean.greetingsAction}"/>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

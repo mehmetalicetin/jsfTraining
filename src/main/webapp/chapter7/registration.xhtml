@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+  <h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Ajax4</title>
+  </h:head>
+  <h:body>
+    <h:form>
+      <h:outputText id="credentialsFlowId" value="#{registrationBean.playerName} #{registrationBean.playerSurname}"/>
+      <h:commandButton value="Register To Tournament (AJAX call a method of a flow bean)"
+                       action="#{registrationBean.credentialsUpperCase()}">
+        <f:ajax execute="@form" render="@form :credentialsFlowId :credentialsViewId"/>
+      </h:commandButton>
+      <hr/>
+      Random credentials (in <b>view</b>) [as long as we are in this view this value won't change]:
+      <h:outputText id="credentialsViewId" value="#{viewRegistrationBean.playerNameView} #{viewRegistrationBean.playerSurnameView}"/>
+      <h:commandButton value="Register To Tournament (AJAX call a method of a view bean)"
+                       action="#{viewRegistrationBean.generateCredentials()}">
+        <f:ajax execute="@this" render="@form :credentialsFlowId :credentialsViewId"/>
+      </h:commandButton>
+    </h:form>
+  </h:body>
+</f:view>
+</html>

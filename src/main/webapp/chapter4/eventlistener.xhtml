@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Event Listener</title>
+        <style>
+            .ui-invalid {
+                background-color:red
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form id="registerForm">
+            <f:event listener="#{playersBeanEventListener.validateAccount}" type="postValidate"></f:event>
+
+            <h:inputText id="bankAccountId" value="#{playersBeanEventListener.bank}" required="true"/>
+            <h:message for="bankAccountId" style="color:red"/>
+            <h:inputText id="confirmBankAccountId" value="#{playersBeanEventListener.cbank}" required="true"/>
+            <h:message for="confirmBankAccountId" style="color:red"/>
+            <h:commandButton value="Send" action="done"/>
+
+            <h:inputText value="#{playersBeanEventListener.name}" required="true" styleClass="#{not component.valid ? 'ui-invalid' : ''}" />
+
+
+        </h:form>
+
+    </h:body>
+</f:view>
+</html>

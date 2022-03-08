@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Navigation Listener</title>
+    </h:head>
+    <h:body>
+
+<!--        If the success.xhtml page exists, then all the given examples will-->
+<!--        navigate to this page. The <h:outputLink> element will navigate-->
+<!--        independently of JSF (that means it doesn't interact with JSF). The-->
+<!--        <h:link> and <h:button> elements will navigate via a bookmarkable-->
+<!--        GET request and aren't capable of form submissions (as you will see,-->
+<!--        this is actually preemptive navigation). The <h:commandButton> and-->
+<!--        <h:commandLink> elements are the main components for navigating-->
+<!--        within a JSF application. They fire POST requests and are capable of form-->
+<!--        submissions. Whenever you want to add the application context path in-->
+<!--        a URL (for example, the URL generated via <h:outputLink>, you can-->
+<!--        use the ExternalContext.getApplicationContextPath method-->
+<!--        of JSF 2.2. For example, take a look at the following code:-->
+<!--        <h:outputLink value="#{facesContext.externalContext.-->
+<!--        applicationContextPath}/next.xhtml">Next</h:outputLink-->
+<!--        The declarative version of this is as follows—thanks to implicit navigation, this code-->
+<!--        is not needed:-->
+<!--        <navigation-rule>-->
+<!--            <from-view-id>*</from-view-id>-->
+<!--            <navigation-case>-->
+<!--                <from-outcome>success</from-outcome>-->
+<!--                <to-view-id>/success.xhtml</to-view-id>-->
+<!--            </navigation-case>-->
+<!--        </navigation-rule>-->
+
+        <h:form>
+            <h:outputLink value="success.xhtml">Success  Ben aynı dizinde ararım.</h:outputLink>
+            <h:link value="Success" outcome="success"/>
+            <h:button value="Success" outcome="success"/>
+            <h:commandButton value="Success" action="success"/>
+            <h:commandLink value="Success" action="success"/>
+        </h:form>
+
+    </h:body>
+</f:view>
+</html>

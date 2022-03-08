@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+  <h:head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chapter 1</title>
+
+    <script type="text/javascript">
+      function infoJS(name, surname) {
+        alert("Name: " + name + " Surname: " + surname);
+      }
+    </script>
+
+    <h:outputStylesheet>
+      .red { color:#cc0000; }
+      .blue { color: #0000cc; }
+    </h:outputStylesheet>
+
+
+  </h:head>
+  <h:body>
+    <h:form>
+
+      #{chapterOne.matchfacts.Aces}
+      #{chapterOne.matchfacts["Aces"]}
+
+      <br/>
+
+      <c:forEach var="match" items="#{chapterOne.matchfacts}">
+        <p:outputLabel value="#{match.value}"/> <br/>
+        #{chapterOne.matchfacts[match.key]}<br/>
+      </c:forEach>
+
+
+
+      #{application}<br/>
+      #{facesContext}<br/>
+      #{initParam}<br/>
+      #{session}<br/>
+      #{view}<br/>
+      #{component}<br/>
+      #{cc}<br/>
+      #{requestScope}<br/>
+      #{header}<br/>
+      #{headerValue}<br/>
+
+      #{chapterOne.vamosRafa_1()}
+
+      #{chapterOne.vamosRafa_2()}
+
+      #{chapterOne.vamosRafa_3("Ali")}
+
+      <p:commandButton value="Click me!" onclick="infoJS('#{chapterOne.vamosRafa_2()}',
+                                                          '#{chapterOne.vamosRafa_2()}')"/>
+
+      <p:outputLabel styleClass="#{chapterOne.play == 'Left' ? 'red' : 'blue'}" value="#{chapterOne.vamosRafa_2()}"/>
+
+      <h:inputHidden value="#{chapterOne.facebookAddress = 'malicetin@'}"/>
+
+      <p:outputLabel value="Facebook Address : #{chapterOne.facebookAddress}" rendered="#{!empty chapterOne.facebookAddress}"/>
+
+      <br/>
+      <br/>
+      <hr/>
+
+
+      #{chapterOne.titles_2013[0]}
+
+      <b>Ordered:</b><br/>
+      <h:dataTable id="atpTableId1"
+                   value="#{atp.getSinglesRankings()}"
+                   var="t">
+        <h:column>#{t}</h:column>
+      </h:dataTable>
+      <br/><br/><b>Reversed:</b><br/>
+      <h:dataTable id="atpTableId2"
+                   value="#{atp.getSinglesRankingsReversed()}"
+                   var="t">
+        <h:column>#{t}</h:column>
+      </h:dataTable>
+      <br/><br/><b>UpperCase:</b><br/>
+      <h:dataTable id="atpTableId3"
+                   value="#{atp.getSinglesRankingsUpperCase()}"
+                   var="t">
+        <h:column>#{t}</h:column>
+      </h:dataTable>
+
+
+      <br/>
+      <br/>
+      <hr/>
+      <hr/>
+
+      #{x = 3}
+      <br/>
+      #{y = x + 5}
+      <br/>
+      #{z = y = x + 4}
+      <br/>
+      #{x += y}
+      <br/>
+      #{0 += 0 +=0 += 1 += 1 += 0 += 0 += 0}
+      <br/>
+      #{'0'.concat(0).concat(0).concat(1).concat(1).concat(0).concat(0).concat(0)}
+      <br/>
+      #{(x->x+1)(3)}
+      <br/>
+      #{((x,y,z) -> x*y*z)(1,2,3)}
+      <br/>
+      #{q = x->x+1 ; q(13)}
+      <br/>
+      #{modules = (n,m) -> m eq 0 ? 0 : (n lt m ? n : (modules(n-m,m))); modules(13,5)}
+
+
+      <br/>
+      <br/>
+      <hr/>
+      <hr/>
+
+      #{nr_set = {1,2,3,4,5,6,7,8,9,10}}
+      <br/>
+      #{nr_list = [1,2,3,4,5,6,7,8,9,10]}
+      <br/>
+      #{nr_map = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10}}
+      <br/>
+      #{nr_list.stream().sorted((i,j)->i-j).toList()}
+      #{nr_list.stream().sorted((i,j)->j-i).toList()}
+      <br/>
+
+
+      #{(lambdaBean.costBeforeVAT.stream().filter((cost)-> cost gt 1000)
+      .map((cost) -> cost + 0.24*cost)).reduce((sum, cost) -> sum + cost).get()}
+
+      <br/>
+
+      #{get_sublist = (list, left, right)->list.stream().substream(left,
+              right).toList()}
+
+      <br/>
+
+      <ui:repeat value="#{get_sublist(myList, from, to)}" var="t">
+        #{t}
+      </ui:repeat>
+
+    </h:form>
+
+
+    <h:form id="prizeFormId">
+      <p:commandButton value="Show Career Prize Money">
+      <f:ajax render="rnprizeid" listener="#{chapterOne.showPrizeMoney()}"/>
+      </p:commandButton>
+      <br/>
+
+      <p:panelGrid id="rnprizeid" columns="1">
+        <p:outputLabel value="#{chapterOne.prize}" rendered="#{chapterOne.show_prize}">
+          <f:convertNumber type="currency" currencySymbol="$"/>
+        </p:outputLabel>
+      </p:panelGrid>
+
+      <br/>
+
+      <p:commandButton value="Hide Career Prize Money">
+        <f:ajax render="rnprizeid" listener="#{chapterOne.hidePrizeMoney()}"/>
+      </p:commandButton>
+
+    </h:form>
+
+
+    <h:form>
+      <h:selectBooleanCheckbox label="Show Image" valueChangeListener="#{chapterOne.showHideRacquetPicture}">
+        <f:ajax render="racquetId"/>
+      </h:selectBooleanCheckbox>
+      <h:panelGroup id="racquetId">
+        <ui:fragment rendered="#{chapterOne.show_racquet}">
+          <img src="../images/motorbike.jpg" width="290" height="174"/>
+        </ui:fragment>
+      </h:panelGroup>
+    </h:form>
+
+  </h:body>
+</f:view>
+</html>

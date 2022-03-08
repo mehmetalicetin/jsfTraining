@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://java.sun.com/jsf/html"
+>
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Chapter 2</title>
+    </h:head>
+    <f:metadata>
+        <f:viewParam name="date" value="#{playersBean.date}">
+            <f:convertDateTime pattern="dd-MM-yyyy"/>
+        </f:viewParam>
+    </f:metadata>
+    <h:body>
+        <h:form>
+        </h:form>
+
+    </h:body>
+</f:view>
+</html>

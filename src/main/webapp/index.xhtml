@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Product</title>
+    </h:head>
+    <f:metadata>
+ <f:viewAction action="#{playersBean.initViewAction()}" phase="INVOKE_APPLICATION"/>
+    </f:metadata>
+    <h:body>
+        <h:form>
+            <p:panel header="Form">
+            <div class="p-field p-col-12 p-md-4">
+                <p:outputLabel for="@next" value="Editable"/>
+                <p:selectOneMenu id="cities" value="#{myBean.city}" effect="fold" editable="true" >
+                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                    <f:selectItems value="#{myBean.cities}"/>
+                    <p:ajax update="@(.ui-panel)"/>
+                </p:selectOneMenu>
+
+                <br/>
+
+                <p:inputText rendered="#{'London'.equalsIgnoreCase(myBean.city)}" id="city" value="#{myBean.city}"/>
+
+                <p:calendar rendered="#{'Berlin'.equalsIgnoreCase(myBean.city)}" id="popup" value="#{myBean.date}"/>
+
+            </div>
+            </p:panel>
+
+            <div class="p-field p-col-12 p-md-4">
+                <p:outputLabel for="@next" value="Lazy"/>
+                <p:selectOneMenu id="lazy" value="#{selectOneMenuView.option}"
+                                 hideNoSelectionOption="true">
+                    <f:selectItem  itemValue="#{null}" itemLabel="AA"
+                                   itemDisabled="true" noSelectionOption="true"/>
+                    <f:selectItems value="#{selectOneMenuView.options}"/>
+                </p:selectOneMenu>
+            </div>
+
+
+            <c:forEach var="countryGroup" items="#{selectOneMenuView.countriesGroup}">
+                <p:outputLabel value="#{countryGroup.label}"/>
+            </c:forEach>
+
+            <br/>
+
+            <c:forEach var="country" items="#{selectOneMenuView.countries}">
+                <p:outputLabel value="#{country.name}"/>
+            </c:forEach>
+
+
+            <br/>
+
+            <p:selectOneMenu value="#{selectOneMenuView.countryGroup}">
+                <f:selectItems value="#{selectOneMenuView.countriesGroup}"/>
+            </p:selectOneMenu>
+
+            <br/>
+
+            <p:selectOneMenu value="#{selectOneMenuView.city}">
+                <f:selectItems value="#{selectOneMenuView.countries}" var="x">
+                    <f:selectItem value="#{x.name}"/>
+                </f:selectItems>
+            </p:selectOneMenu>
+
+
+            <ui:repeat var="country" value="#{selectOneMenuView.countries}">
+                <p:outputLabel value="#{country.name}"/>
+            </ui:repeat>
+
+
+            <ui:include src="rafa.xhtml">
+                <ui:param name="rafa" value="Rafael Nadal Page"/>
+            </ui:include>
+
+        </h:form>
+
+    </h:body>
+</f:view>
+</html>

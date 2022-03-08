@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>DataTable 3</title>
+    </h:head>
+    <h:body>
+        <h:form id="dataTableFormId">
+
+            <b>FIRST:</b> #{playersDT.table.first}
+            <b>ROWS:</b> #{playersDT.table.rows}
+            <b>ROW COUNT:</b> #{playersDT.table.rowCount}
+
+            <h:dataTable value="#{playersDT.dataHashSet}" binding="#{playersDT.table}"
+                         rows="#{playersDT.rowsOnPage}" first="0" var="t" border="1">
+                <h:column>
+                    <f:facet name="header">Ranking</f:facet>
+                    #{t.ranking}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{t.player}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Age</f:facet>
+                    #{t.age}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Birthplace</f:facet>
+                    #{t.birthplace}
+                </h:column>
+            </h:dataTable>
+            <h:outputText value="#{(playersDT.table.first div playersDT.table.rows) + 1}">
+                <f:converter converterId="javax.faces.Integer"/>
+            </h:outputText>
+            of
+            <h:outputText value="#{playersDT.table.rowCount mod playersDT.table.rows eq 0 ?
+                                    (playersDT.table.rowCount div playersDT.table.rows) :
+                                    ((playersDT.table.rowCount div playersDT.table.rows)+ 1)-(((playersDT.table.rowCount div playersDT.table.rows) + 1) mod 1)}">
+                <f:converter converterId="javax.faces.Integer"/>
+            </h:outputText>
+            <h:commandButton value="First Page"
+                             action="#{playersDT.goToFirstPage}"
+                             disabled="#{playersDT.table.first eq 0}"></h:commandButton>
+
+            <h:commandButton value="Next Page"
+                             action="#{playersDT.goToNextPage}"
+                             disabled="#{playersDT.table.first + playersDT.table.rows ge playersDT.table.rowCount}"/>
+
+            <h:commandButton value="Previous Page"
+                             action="#{playersDT.goToPreviousPage()}"
+                             disabled="#{playersDT.table.first eq 0}" />
+
+            <h:commandButton value="Last Page"
+                             action="#{playersDT.goToLastPage()}"
+                             disabled="#{playersDT.table.first + playersDT.table.rows ge playersDT.table.rowCount}" />
+        </h:form>
+
+    </h:body>
+</f:view>
+</html>

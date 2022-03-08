@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Product</title>
+    </h:head>
+
+    <style type="text/css">
+        .ui-panel, div.ui-state-hover {
+            margin: 10px;
+            width: 200px;
+        }
+
+        .ui-dashboard-column {
+            width: 220px;
+        }
+    </style>
+
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+
+                <p:dashboard id="board" model="#{dashboardView.model}">
+                    <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs"/>
+
+                    <p:panel id="hello" header="#{msg['hello']}">
+                        <h:outputText value="#{msg['hello-content']}"/>
+                    </p:panel>
+
+                </p:dashboard>
+
+                <h:outputFormat value="#{msg['HELLOPARAM']}">
+                    <f:param value="Roger" />
+                    <f:param value="Federer" />
+                </h:outputFormat>
+
+                <br/>
+
+                <h:outputFormat value="#{msg['REGISTERED']}">
+                    <f:param value="1"/>
+                </h:outputFormat>
+
+                <div style="clear:both"/>
+            </h:form>
+        </div>
+
+    </h:body>
+</f:view>
+</html>

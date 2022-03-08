@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>DataTable 3</title>
+
+        <h:outputStylesheet>
+            .rowshow
+            {
+                display:marker;
+            }
+            .rowhide
+            {
+                display:none;
+            }
+        </h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <h:form id="dataTableFormId">
+            <h:dataTable value="#{playersDT.data}" binding="#{playersDT.table}" rows="#{playersDT.rowsOnPage}" first="0" var="t" border="1">
+                <h:column>
+                    <f:facet name="header">Ranking</f:facet>
+                    #{t.ranking}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{t.player}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Age
+                        <h:selectOneMenu value="#{playersDT.criteria}">
+                            <f:selectItem itemValue="all" itemLabel="all" />
+                            <f:selectItem itemValue="&lt;26" itemLabel="&lt;26" />
+                            <f:selectItem itemValue="&gt;=26" itemLabel="&gt;=26" />
+                        </h:selectOneMenu>
+                        <h:commandButton value="Go!" action="#{playersDT.addTableFilter()}"/>
+                    </f:facet>
+                    #{t.age}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Birthplace</f:facet>
+                    #{t.birthplace}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+    </h:body>
+</f:view>
+</html>
